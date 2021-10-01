@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
                           controller.close();
                           controller = StreamController();
                           Preview.getLivePreview(
-                              frames: 300, controller: controller);
+                              frames: 1000, controller: controller);
                           videoRunning = true;
                         });
                       },
