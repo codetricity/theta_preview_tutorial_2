@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
                         setState(() {
                           controller.close();
                           controller = StreamController();
-                          Preview.getLivePreview(
+                          Sc2Preview.getLivePreview(
                               frames: 1000, controller: controller);
                           videoRunning = true;
                         });
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                     OutlinedButton(
                         onPressed: () {
-                          Preview.stopPreview();
+                          Sc2Preview.stopPreview();
                           setState(() {
                             videoRunning = false;
                           });
