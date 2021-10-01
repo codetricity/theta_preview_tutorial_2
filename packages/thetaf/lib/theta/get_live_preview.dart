@@ -77,9 +77,10 @@ class Preview {
             var frame = buffer.sublist(startIndex, endIndex);
             if (frameTimer.elapsedMilliseconds > frameDelay) {
               if (frameCount > 0) {
-                controller.add(frame);
-
-                print('framecount $frameCount');
+                if (keepRunning) {
+                  controller.add(frame);
+                  print('framecount $frameCount, keepRunning: $keepRunning');
+                }
                 frameTimer.reset();
               }
 
