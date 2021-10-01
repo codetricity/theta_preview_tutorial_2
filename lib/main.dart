@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:thetaf/thetaf.dart' as thetaf;
+import 'package:thetaf/thetaf.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,13 +15,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final StreamController controller = StreamController();
+  StreamController controller = StreamController();
   bool videoRunning = false;
   var responseText = 'camera response';
 
   @override
   Widget build(BuildContext context) {
-    final preview = thetaf.Preview(controller);
     return MaterialApp(
       home: Scaffold(
         body: Column(
@@ -29,15 +28,16 @@ class _MyAppState extends State<MyApp> {
             Expanded(
                 flex: 8,
                 child: videoRunning
-                    ? thetaf.LivePreview(controller)
+                    ? LivePreview(controller)
                     : Text(responseText)),
             Expanded(
                 flex: 1,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     OutlinedButton(
                       onPressed: () async {
-                        var response = await thetaf.ThetaBase.get('info');
+                        var response = await ThetaBase.get('info');
                         setState(() {
                           responseText = response;
                         });
@@ -47,8 +47,11 @@ class _MyAppState extends State<MyApp> {
                     ),
                     OutlinedButton(
                       onPressed: () {
-                        preview.getLivePreview(frames: 300);
                         setState(() {
+                          controller.close();
+                          controller = StreamController();
+                          Preview.getLivePreview(
+                              frames: 300, controller: controller);
                           videoRunning = true;
                         });
                       },
@@ -56,7 +59,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                     OutlinedButton(
                         onPressed: () {
-                          preview.stopPreview();
+                          Preview.stopPreview();
                           setState(() {
                             videoRunning = false;
                           });
