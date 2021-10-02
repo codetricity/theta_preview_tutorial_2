@@ -14,8 +14,7 @@ class Sc2Preview extends Preview {
 
   static void stopPreview() {
     keepRunning = false;
-
-    Future.delayed(const Duration(seconds: 1), () => client.close());
+    // client.close();
   }
 
   static void getLivePreview(
