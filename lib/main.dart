@@ -51,7 +51,9 @@ class _MyAppState extends State<MyApp> {
                           controller.close();
                           controller = StreamController();
                           Sc2Preview.getLivePreview(
-                              frames: 1000, controller: controller);
+                              frames: 100,
+                              frameDelay: 250,
+                              controller: controller);
                           videoRunning = true;
                         });
                       },
